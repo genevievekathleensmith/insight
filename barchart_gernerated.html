@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- Generated with d3-generator.com -->
+<html>
+  <head>
+     <title>Bar Chart</title>
+     <meta http-equiv="X-UA-Compatible" content="IE=9">
+     <style>
+     .selected{fill: #f00;}
+     </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script src="http://d3js.org/d3.v2.min.js"></script>
+    <script>
+function renderChart() {
+
+var data = d3.csv.parse(d3.select('#csv').text());
+var valueLabelWidth = 40; // space reserved for value labels (right)
+var barHeight = 20; // height of one bar
+var barLabelWidth = 100; // space reserved for bar labels
+var barLabelPadding = 5; // padding between bar and bar labels (left)
+var gridLabelHeight = 18; // space reserved for gridline labels
+var gridChartOffset = 3; // space between start of grid and first bar
+var maxBarWidth = 420; // width of the bar with the max value
+ 
+// accessor functions 
+var barLabel = function(d) { return d['state']; };
+var barValue = function(d) { return parseFloat(d['percapita']); };
+ 
+// sorting
+var sortedData = data.sort(function(a, b) {
+ return d3.descending(barValue(a), barValue(b));
+}); 
+
+// scales
+var yScale = d3.scale.ordinal().domain(d3.range(0, sortedData.length)).rangeBands([0, sortedData.length * barHeight]);
+var y = function(d, i) { return yScale(i); };
+var yText = function(d, i) { return y(d, i) + yScale.rangeBand() / 2; };
+var x = d3.scale.linear().domain([0, d3.max(sortedData, barValue)]).range([0, maxBarWidth]);
+// svg container element
+var chart = d3.select('#chart').append("svg")
+  .attr('width', maxBarWidth + barLabelWidth + valueLabelWidth)
+  .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight);
+// grid line labels
+var gridContainer = chart.append('g')
+  .attr('transform', 'translate(' + barLabelWidth + ',' + gridLabelHeight + ')'); 
+gridContainer.selectAll("text").data(x.ticks(10)).enter().append("text")
+  .attr("font-family","sans-serif")
+  .attr("x", x)
+  .attr("dy", -3)
+  .attr("text-anchor", "middle")
+  .text(String);
+// vertical grid lines
+gridContainer.selectAll("line").data(x.ticks(10)).enter().append("line")
+  .attr("x1", x)
+  .attr("x2", x)
+  .attr("y1", 0)
+  .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+  .style("stroke", "#ccc");
+// bar labels
+var labelsContainer = chart.append('g')
+  .attr('transform', 'translate(' + (barLabelWidth - barLabelPadding) + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
+labelsContainer.selectAll('text').data(sortedData).enter().append('text')
+  .attr('y', yText)
+  .attr('stroke', 'none')
+  .attr("font-family","sans-serif")
+  .attr('fill', 'black')
+  .attr("dy", ".35em") // vertical-align: middle
+  .attr('text-anchor', 'end')
+  .text(barLabel);
+// bars
+var barsContainer = chart.append('g')
+  .attr('transform', 'translate(' + barLabelWidth + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
+barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
+  .attr('y', y)
+  .attr('height', yScale.rangeBand())
+  .attr('width', function(d) { return x(barValue(d)); })
+  .attr('stroke', 'white')
+  .attr('fill', 'darkgreen');
+// bar value labels
+barsContainer.selectAll("text").data(sortedData).enter().append("text")
+  .attr("x", function(d) { return x(barValue(d)); })
+  .attr("y", yText)
+  .attr("font-family","sans-serif")
+  .attr("dx", 3) // padding-left
+  .attr("dy", ".35em") // vertical-align: middle
+  .attr("text-anchor", "start") // text-align: right
+  .attr("fill", "black")
+  .attr("stroke", "none")
+  .text(function(d) { return d3.round(barValue(d), 2); });
+barsContainer.selectAll("rect")
+  .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
+// start line
+barsContainer.append("line")
+  .attr("y1", -gridChartOffset)
+  .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+  .style("stroke", "#000");
+
+}
+    </script>
+    <script id="csv" type="text/csv">"state","Total.3.years.and.older","Individual.lives.in.household.with.Internet.use.1","Individual.accesses.the.Internet.from.some.location.2","Individual.accesses.the.Internet.from.home","comments","population","percapita"
+"AK",673,559,551,502,468,710,0.659154929577465
+"AL",4552,3278,3025,2746,713,4780,0.149163179916318
+"AR",2789,2086,1954,1805,455,2916,0.156035665294925
+"AZ",6213,4579,4321,3872,1986,6392,0.310700876095119
+"CA",35929,29195,26393,24609,16051,37254,0.430853062758361
+"CO",4885,4185,3967,3725,2475,5029,0.492145555776496
+"CT",3433,2885,2728,2594,1105,3574,0.30917739227756
+"DC",603,468,475,420,568,602,0.943521594684385
+"DE",870,680,640,601,227,898,0.252783964365256
+"FL",18403,15003,14025,13190,4852,18801,0.258071379181958
+"GA",9370,7419,7167,6585,2197,9688,0.22677539223782
+"HI",1285,1093,969,919,423,1360,0.311029411764706
+"IA",2933,2352,2233,2083,811,3046,0.266250820748523
+"ID",1519,1319,1233,1162,440,1568,0.280612244897959
+"IL",12191,10086,9567,8973,4066,12831,0.316888784973891
+"IN",6247,4852,4776,4317,1530,6484,0.235965453423812
+"KS",2714,2190,2137,1940,729,2853,0.255520504731861
+"KY",4112,3060,2955,2680,888,4339,0.204655450564646
+"LA",4323,2926,2860,2530,582,4533,0.128391793514229
+"MA",6331,5446,5020,4809,3324,6548,0.507635919364692
+"MD",5601,4681,4538,4212,2224,5774,0.385174922064427
+"ME",1274,1073,1025,959,559,1328,0.420933734939759
+"MI",9440,7626,7383,6800,2698,9884,0.272966410360178
+"MN",5148,4497,4254,4045,2099,5304,0.395739064856712
+"MO",5709,4302,4257,3806,1459,5989,0.243613291033562
+"MS",2801,1814,1854,1570,268,2967,0.0903269295584766
+"MT",962,753,744,663,325,989,0.328614762386249
+"NC",9123,7088,6669,6130,2434,9535,0.255270057682223
+"ND",652,548,531,499,175,673,0.260029717682021
+"NE",1735,1320,1317,1170,448,1826,0.245345016429354
+"NH",1264,1109,1056,1006,591,1316,0.449088145896657
+"NJ",8428,7057,6588,6206,2561,8792,0.291287534121929
+"NM",1989,1470,1351,1217,761,2059,0.369596891694998
+"NV",2547,2108,1975,1861,774,2701,0.286560533135876
+"NY",18665,15116,13705,12900,7049,19378,0.363763030240479
+"OH",10942,8277,7864,7223,2877,11537,0.249371587067695
+"OK",3623,2712,2516,2280,606,3751,0.161556918155159
+"OR",3723,3274,3056,2892,2778,3831,0.725137039937353
+"PA",12200,9860,9296,8760,3849,12702,0.303023145961266
+"RI",1007,828,760,724,313,1053,0.297245963912631
+"SC",4463,3289,3207,2852,784,4625,0.169513513513514
+"SD",785,614,592,542,188,814,0.230958230958231
+"TN",6116,4545,4223,3954,1496,6346,0.235739048219351
+"TX",24427,17731,16638,14960,5529,25146,0.219875924600334
+"UT",2657,2265,2157,2018,1082,2764,0.391461649782923
+"VA",7668,5923,5784,5303,2930,8001,0.366204224471941
+"VT",606,519,496,468,400,626,0.638977635782748
+"WA",6490,5524,5249,4942,5039,6725,0.749293680297398
+"WI",5500,4437,4388,4036,1695,5687,0.298048180059785
+"WV",1766,1248,1130,1037,324,1853,0.174851592012952
+"WY",542,450,436,403,134,564,0.23758865248227
+</script>
+    <script>renderChart();</script>
+  </body>
+</html>
