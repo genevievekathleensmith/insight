@@ -1,0 +1,12 @@
+
+Other things to look for on the Services page from AWS:
+
+s3 like a google drive for your code - where to put all your static data
+RDS also really helpful - where to put all your database stuff
+
+elastic beanstalk - does all the work of spinning up the ec2, installing flask, python, etc
+very helpful for shifting from a small instance to a medium one, etc.
+does some version control on your app
+
+
+
