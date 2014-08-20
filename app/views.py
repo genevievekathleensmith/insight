@@ -61,16 +61,36 @@ def index_neutralopinion():
     return render_template('index_grayscale.html') 
 
 
+@app.route("/boxes")
+def index_boxes():
+    return render_template('boxplots.html') 
+
+
 
 @app.route("/states_fancy")
 def states_page_fancy():
 	with fcc_db:
 		cur = fcc_db.cursor()
-		cur.execute("SELECT state, comments from FCC;")
-
+		cur.execute("SELECT state, comment_rate from FCC;")
 		query_results = cur.fetchall()
 	states = []
 	for result in query_results:
 		states.append(dict(state=result[0], comments=result[1]))
 	return render_template('states.html', states=states) 
+
+
+
+
+@app.route("/fcc_db_json")
+def states_json():
+	with fcc_db:
+		cur = fcc_db.cursor()
+		cur.execute("SELECT state, comment_rate FROM FCC;")
+		query_results = cur.fetchall()
+	states = []
+	for result in query_results:
+		states.append(dict(state=result[0], comment_rate=result[1]))
+	return jsonify(dict(states=states))
+
+
 

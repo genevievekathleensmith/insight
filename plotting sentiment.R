@@ -1,6 +1,6 @@
 
 
-blob = read.csv('Documents/insight/blob.csv')
+blob = read.csv('Documents/insight/sentiments_by_states.csv')
 head(blob)
 names(blob)=c('score','state')
 
@@ -76,12 +76,28 @@ max(political$mean_sentiment)
 abline(v=political$mean_sentiment[political$state=='NY'])
 abline(v=political$mean_sentiment[political$state=='CA'])
 
-lines(density(blob$score[blob$state=='NY'],bw=.5),add=T)
+lines(density(blob$score[blob$state=='NY'],bw=.5))
 
-lines(density(blob$score[blob$state=='SC'],bw=.5),add=T)
+lines(density(blob$score[blob$state=='SC'],bw=.5))
 
 boxplot(blob$score[blob$state=='NY'],blob$score[blob$state!='NY'],ylim=c(-4,4))
 
 x = t.test(blob$score[blob$state=='NY'],blob$score[blob$state!='NY'])
 t.test(blob$score[blob$state=='NY'])$conf.int
+
+plot(density(blob$score),xlim=c(-2,2))
+lines(density(blob$score[blob$state=='NY']),col='red')
+
+
+
+
+reps = political$state[political$Electoral!=political$Barack]
+dems = political$state[political$Electoral==political$Barack]
+reps
+dems
+head(political)
+
+
+blob$state[blob$score==min(blob$score)]
+which(blob$score<(-2))-1
 

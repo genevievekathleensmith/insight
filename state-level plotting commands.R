@@ -3,7 +3,7 @@
 data = read.csv('Documents/insight/comment_rate_data_forR.csv')
 
 # read in sentiment data
-blob = read.csv('Documents/insight/blob.csv')
+blob = read.csv('Documents/insight/sentiments_by_states.csv')
 names(blob)=c('score','state')
 # calculate state-level averages for seniment
 means = by(blob$score,INDICES = blob$state,FUN = mean)
@@ -36,19 +36,26 @@ political = merge(merge2,party_df)
 political
 
 
+party_color = c("red", "blue")[(political$party=='democrat')+1]
 
 
 library(scales)
-plot(political$duplication_rate~(political$totals),ylim=c(.4,.75),las=1,pch=19,cex=3.5,col=alpha(party_color,.5),xlab='Number of comments submitted',ylab='Proportion of duplicate comments')
-text((political$totals),political$duplication_rate,labels=political$state,cex=.8,col='white',font=2)
-
-
-party_color = c("red", "blue")[(political$party=='democrat')+1]
 
 plot(political)
 
 plot(political$comment_rate,political$sentiment_score,
-     las=1,pch=19,cex=1/(political$duplication_rate^2),col=alpha(party_color,.5),
+     las=1,pch=19,cex=3.5,col=alpha(party_color,.5),
+     xlab='State-wide engagement rate',
+     ylab='Average sentiment score across state',
+     axes=F)
+text(political$comment_rate,political$sentiment_score,
+     labels = political$state,
+     cex = .8, col='white',font=2)
+axis(1)
+axis(2,las=1)
+
+plot(political$comment_rate,political$sentiment_score,
+     las=1,pch=19,cex=3.5,col='grey',#alpha(party_color,.5),
      xlab='State-wide engagement rate',
      ylab='Average sentiment score across state',
      axes=F)
@@ -69,3 +76,50 @@ text(political$duplication_rate,political$sentiment_score,
      cex = .8, col='white',font=2)
 axis(1)
 axis(2,las=1)
+
+
+
+
+
+
+
+head(blob)
+max(blob$score)
+blob[which(blob$score==max(blob$score)),]
+
+hist(blob$score,xlim=c(-2,2),breaks=10000)
+mode(blob$score)
+
+freqs = table(blob$score)
+names(freqs)[freqs==max(freqs)]
+
+which(blob$score==(-0.440086229423352),arr.ind=T)[1:10]
+
+
+
+unique_ids = read.csv('Documents/insight/unique_ids.csv',header=F)
+head(unique_ids)
+dim(unique_ids)
+
+unique_state = states$V2[unique_ids$V2]
+length(table(unique_state))
+
+length(table(states$V2))
+
+unique_df = data.frame(table(unique_state),table(states$V2))
+head(unique_df)
+any(unique_df$unique_state!=unique_df$Var1)
+all(unique_df$unique_state==unique_df$Var1)
+
+unique_df$unique_portion = unique_df$Freq/unique_df$Freq.1
+
+plot(unique_df$unique_portion)
+text(c(1:60),unique_df$unique_portion,unique_df$unique_state)
+
+plot(unique_df$unique_portion,ylim=c(.45,.65))
+text(c(1:60),unique_df$unique_portion,unique_df$unique_state)
+
+
+plot(1-unique_df$unique_portion,ylim=c(.35,.55))
+text(c(1:60),1-unique_df$unique_portion,unique_df$unique_state)
+
