@@ -1,5 +1,7 @@
 
 
+
+
 data = read.csv('Documents/insight/raw_metadata.csv')
 
 state_totals = table(data$state)
@@ -10,10 +12,10 @@ plot(data$date[1:5])
 summary(data)
 class(data$date[1])
 
-as.date(data$date)
+#as.date(data$date)
 
 ?date
-strptime(data$date[1], "%Y-%m-%d %H:%M:%S"))
+strptime(data$date[1], "%Y-%m-%d %H:%M:%S")
 strptime(data$date[1], "%Y-%m-%d %H:%M:%S")
 
 true_date = as.POSIXlt(strptime(data$date, "%Y-%m-%dT%H:%M:%SZ"))
@@ -40,3 +42,4 @@ p = plot(days3,ylab='Number of comments')
 abline()
 names(p)
 p
+

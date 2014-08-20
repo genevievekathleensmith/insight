@@ -85,11 +85,11 @@ def states_page_fancy():
 def states_json():
 	with fcc_db:
 		cur = fcc_db.cursor()
-		cur.execute("SELECT state, comment_rate FROM FCC;")
+		cur.execute("SELECT state, comment_rate, sentiment_score, duplication_rate FROM states;")
 		query_results = cur.fetchall()
 	states = []
 	for result in query_results:
-		states.append(dict(state=result[0], comment_rate=result[1]))
+		states.append(dict(state=result[0], comment_rate=result[1], sentiment_score=result[2], duplication_rate=result[3]))
 	return jsonify(dict(states=states))
 
 

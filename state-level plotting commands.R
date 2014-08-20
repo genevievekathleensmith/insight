@@ -34,7 +34,7 @@ names(party_df)[1]='state'
 
 political = merge(merge2,party_df)
 political
-
+write.csv(political,'Documents/insight/state_level_summary.csv',row.names=F)
 
 party_color = c("red", "blue")[(political$party=='democrat')+1]
 
@@ -82,7 +82,7 @@ axis(2,las=1)
 
 
 
-
+dim(blob)
 head(blob)
 max(blob$score)
 blob[which(blob$score==max(blob$score)),]
