@@ -34,6 +34,9 @@ names(party_df)[1]='state'
 
 political = merge(merge2,party_df)
 political
+
+write.csv(political$comment_rate,'comment_rates.csv',row.names=F)
+
 write.csv(political,'Documents/insight/state_level_summary.csv',row.names=F)
 
 party_color = c("red", "blue")[(political$party=='democrat')+1]

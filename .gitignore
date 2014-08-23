@@ -1,0 +1,9 @@
+*.xml
+*.pdf
+/app
+/env
+/streamtools
+*.png
+*.csv
+*.db
+*.pkl
