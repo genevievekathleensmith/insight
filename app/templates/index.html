@@ -167,7 +167,7 @@
     
 	<h4 class="text-center">Here's where your state stands on net neutrality:</h4>
 	<h5 class="text-center">Citizen engagement with net neutrality was <div id='comment_average' class='special''></div> average in <div id='full_name1' class='special'></div>.</h5>
-	<h5 class="text-center">There were <div id="state_rate" class="special"></div> comments submitted from <div id='full_name2' class='special'></div> per 1000 households with access to the internet.</h5>
+	<h5 class="text-center">There were <div id="state_rate" class="special"></div> comments submitted from <div id='full_name2' class='special'></div> per 100 households with access to the internet.</h5>
 
 
 
@@ -609,7 +609,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
                    inputstate: $('input[name="inputstate"]').val()
                  },
             success: function(data) {
-               $ ('#state_rate').text(data.comment_rate);
+               $ ('#state_rate').text(Math.round(data.comment_rate*10,2));
                $ ('#sent_score').text(data.sentiment_score);
                $ ('#duplication_rate').text(data.duplication_rate);
                $ ('#state').text(data.state);
