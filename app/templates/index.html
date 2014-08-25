@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+	.state{
+		fill: none;
+		stroke: #a9a9a9;
+		stroke-width: 1;
+	}
+	.state:hover{
+		fill-opacity:0.9;
+		stroke-width: 1;
+	}
+	
+	.bar:hover{
+		fill: steelblue;
+		}
+
+				
+	#tooltip {   
+		position: absolute;           
+		text-align: left;
+		padding: 20px;             
+		margin: 10px;
+		background: lightsteelblue;   
+		border: 1px;      
+		border-radius: 2px;           
+		pointer-events: none;         
+	}
+	#tooltip h4{
+		margin:0;
+		font-size:14px;
+	}
+	#tooltip{
+		background:rgba(0,0,0,0.9);
+		border:1px solid grey;
+		border-radius:5px;
+		font-size:12px;
+		width:auto;
+		padding:4px;
+		color:white;
+		opacity:0;
+	}
+	#tooltip table{
+		table-layout:fixed;
+	}
+	#tooltip tr td{
+		padding:0;
+		margin:0;
+	}
+	#tooltip tr td:nth-child(1){
+		width:100px;
+	}
+	#tooltip tr td:nth-child(2){
+		text-align:center;
+	}
+	
+</style>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NeutralOpinion</title>
+     <style>
+     .selected{fill: #b2d8b2;}
+     </style>
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/fonts/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+	<script type=text/javascript src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+	</script>
+
+	<script type=text/javascript>
+		var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	</script>
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-play-circle"></i> Neutral_Opinion
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">Use It</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h2 class="brand-heading">Neutral_Opinion</h2>
+                        <p class="intro-text">A tool for interpreting how people <i>really</i> feel about net neutrality.</p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Use Neutral_Opinion</h2>
+                <h4>Enter the name of the state you are interested in:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                        <input type="text" class="form-control" name = "inputstate" id="inputstate" placeholder="Enter State">
+                        </div>
+
+                    <button type="submit" class="btn btn-default page-scroll" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="state_button">Submit</button>
+                    <i class="fa fa-angle-double-down animated"></i>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Download Section -->
+   
+<div id="collapseOne" class="panel-collapse collapse">
+    
+	<h4 class="text-center">Here's where your state stands on net neutrality:</h4>
+	<h5 class="text-center">Citizen engagement with net neutrality was <div id='comment_average' class='special''></div> average in <div id='full_name1' class='special'></div>.</h5>
+	<h5 class="text-center">There were <div id="state_rate" class="special"></div> comments submitted from <div id='full_name2' class='special'></div> per 1000 households with access to the internet.</h5>
+
+
+
+	<h5 class="text-center">Of the comments submitted, <div id='duplication_rate' class='special'></div>% came from templates or form letters.</h5>
+	<h5 class="text-center">The average sentiment of comments from <div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div> which is <div id='sent_average' class='special'></div> the national average (0.185).</h5>
+
+<br>
+<br>
+<br>
+
+<h4 class="text-center">State rankings by engagement (left) and sentiment (right)</h4>
+<br>
+<br>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- Generated with d3-generator.com -->
+<html>
+  <head>
+     <title>Bar Chart</title>
+     <meta http-equiv="X-UA-Compatible" content="IE=9">
+  </head>
+
+<style>
+    .selected{fill: #00b796;}
+
+	.rect:hover{
+		fill: steelblue;
+		}
+
+     </style>
+   
+  <body>
+    <div id="chart"></div>
+    <script src="http://d3js.org/d3.v2.min.js"></script>
+    <script>
+function render1Chart() {
+
+var data = d3.csv.parse(d3.select('#csv').text());
+var valueLabelWidth = 40; // space reserved for value labels (right)
+var barHeight = 20; // height of one bar
+var barLabelWidth = 100; // space reserved for bar labels
+var barLabelPadding = 5; // padding between bar and bar labels (left)
+var gridLabelHeight = 18; // space reserved for gridline labels
+var gridChartOffset = 3; // space between start of grid and first bar
+var maxBarWidth = 420; // width of the bar with the max value
+ 
+// accessor functions 
+var barLabel = function(d) { return d['state']; };
+var barValue = function(d) { return parseFloat(d['comment_rate']); };
+ 
+// sorting
+var sortedData = data.sort(function(a, b) {
+ return d3.descending(barValue(a), barValue(b));
+}); 
+
+// scales
+var yScale = d3.scale.ordinal().domain(d3.range(0, sortedData.length)).rangeBands([0, sortedData.length * barHeight]);
+var y = function(d, i) { return yScale(i); };
+var yText = function(d, i) { return y(d, i) + yScale.rangeBand() / 2; };
+var x = d3.scale.linear().domain([0, d3.max(sortedData, barValue)]).range([0, maxBarWidth]);
+// svg container element
+var chart = d3.select('#chart').append("svg")
+  .attr('width', maxBarWidth + barLabelWidth + valueLabelWidth)
+  .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight);
+// grid line labels
+var gridContainer = chart.append('g')
+  .attr('transform', 'translate(' + barLabelWidth + ',' + gridLabelHeight + ')'); 
+gridContainer.selectAll("text").data(x.ticks(10)).enter().append("text")
+  .attr("x", x)
+  .attr("dy", -3)
+  .attr("text-anchor", "middle")
+  .text(String);
+// vertical grid lines
+gridContainer.selectAll("line").data(x.ticks(10)).enter().append("line")
+  .attr("x1", x)
+  .attr("x2", x)
+  .attr("y1", 0)
+  .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+  .style("stroke", "#ccc");
+// bar labels
+var labelsContainer = chart.append('g')
+  .attr('transform', 'translate(' + (barLabelWidth - barLabelPadding) + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
+labelsContainer.selectAll('text').data(sortedData).enter().append('text')
+  .attr('y', yText)
+  .attr('stroke', 'none')
+  .attr('fill', 'black')
+  .attr("dy", ".35em") // vertical-align: middle
+  .attr('text-anchor', 'end')
+  .text(barLabel);
+// bars
+var barsContainer = chart.append('g')
+  .attr('transform', 'translate(' + barLabelWidth + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
+barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
+  .attr('y', y)
+  .attr('height', yScale.rangeBand())
+  .attr('width', function(d) { return x(barValue(d)); })
+  .attr('stroke', 'white')
+  .attr('fill', 'black')
+//   .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
+;
+// bar value labels
+barsContainer.selectAll("text").data(sortedData).enter().append("text")
+  .attr("x", function(d) { return x(barValue(d)); })
+  .attr("y", yText)
+  .attr("dx", 3) // padding-left
+  .attr("dy", ".35em") // vertical-align: middle
+  .attr("text-anchor", "start") // text-align: right
+  .attr("fill", "black")
+  .attr("stroke", "none")
+  .text(function(d) { return d3.round(barValue(d), 2); });
+// start line
+// barsContainer.append("line")
+//   .attr("y1", -gridChartOffset)
+//   .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+//   .style("stroke", "#000")
+  ;
+
+
+			d3.select("#inputstate").on("input", function(){
+				chart.selectAll("rect")
+        		.attr("id", function(d) {return d.id;})
+        		.attr("class", function(d) { if (d.state==d3.select("#inputstate").property("value")) {return "selected"}})} );
+
+}
+    </script>
+    <script id="csv" type="text/csv">"state","comment_rate","sentiment_score","duplication_rate","party","rank","average","sent_average","full_name"
+"AK",1.73524150268336,0.104124299413879,0.677319587628866,"republican",6,"above","below","Alaska"
+"AL",0.584197681513118,0.21037441945054,0.53733681462141,"republican",49,"below","above","Alabama"
+"AR",0.61025886864813,0.204344780592831,0.512175962293794,"republican",47,"below","above","Arkansas"
+"AZ",1.28390478270365,0.218849006306589,0.562510631059704,"republican",13,"above","above","Arizona"
+"CA",1.35201233087858,0.136221656277104,0.501621402513174,"democrat",10,"above","below","California"
+"CO",1.63393070489845,0.169719631834949,0.487715706346885,"democrat",7,"above","below","Colorado"
+"CT",0.962564991334489,0.180552786852655,0.532229024126756,"democrat",26,"below","below","Connecticut"
+"DC",2.58333333333333,0.204614937394428,0.700578990901571,"democrat",1,"above","above","D.C."
+"DE",1.31911764705882,0.151167241604691,0.647714604236343,"democrat",12,"above","below","Delaware"
+"FL",0.818036392721456,0.201384401462105,0.482441130937831,"democrat",40,"below","above","Florida"
+"GA",0.737565709664375,0.189806972548567,0.513706140350877,"republican",44,"below","above","Georgia"
+"HI",1.00914913083257,0.124240064819169,0.491387126019946,"democrat",22,"below","below","Hawaii"
+"IA",0.881377551020408,0.193093257981647,0.564399421128799,"democrat",31,"below","above","Iowa"
+"ID",0.990144048521607,0.247972231488658,0.547473200612557,"republican",24,"below","above","Idaho"
+"IL",0.988201467380527,0.148671194470371,0.507775659676934,"democrat",25,"below","below","Illinois"
+"IN",0.817394888705688,0.172898164614104,0.508068582955118,"republican",41,"below","below","Indiana"
+"KS",0.865296803652968,0.244990152379713,0.555672823218997,"republican",34,"below","above","Kansas"
+"KY",0.739869281045752,0.167418760393011,0.521201413427562,"republican",43,"below","below","Kentucky"
+"LA",0.570061517429938,0.213548631739218,0.47242206235012,"republican",50,"below","above","Louisiana"
+"MA",1.45703268453911,0.145827603858713,0.526780088216761,"democrat",9,"above","below","Massachusetts"
+"MD",1.07861568041017,0.187238275269544,0.583679936621113,"democrat",20,"below","above","Maryland"
+"ME",1.49673811742777,0.114973423853375,0.50747198007472,"democrat",8,"above","below","Maine"
+"MI",0.919223708366116,0.184017836983659,0.488587731811698,"democrat",29,"below","below","Michigan"
+"MN",1.13053146542139,0.166919920727334,0.540322580645161,"democrat",17,"above","below","Minnesota"
+"MO",0.862854486285449,0.23308776930493,0.512122844827586,"republican",36,"below","above","Missouri"
+"MS",0.431642778390298,0.246164841459157,0.489144316730524,"republican",51,"below","above","Mississippi"
+"MT",1.199203187251,0.222749795416637,0.492801771871539,"republican",15,"above","above","Montana"
+"NC",0.826749435665914,0.192968574854676,0.522525597269625,"republican",38,"below","above","North Carolina"
+"ND",0.83029197080292,0.255228317358224,0.562637362637363,"republican",37,"below","above","North Dakota"
+"NE",0.878787878787879,0.181210594966032,0.532758620689655,"republican",32,"below","below","Nebraska"
+"NH",1.79531109107304,0.171393829893805,0.627825213460573,"democrat",5,"above","below","New Hampshire"
+"NJ",0.876009635822588,0.160211321265847,0.519411193788418,"democrat",33,"below","below","New Jersey"
+"NM",1.3265306122449,0.119182592943101,0.451282051282051,"democrat",11,"above","below","New Mexico"
+"NV",1.00474383301708,0.204108525265769,0.530217186024551,"democrat",23,"below","above","Nevada"
+"NY",1.15963217782482,0.132941031012699,0.504763534713903,"democrat",16,"above","below","New York"
+"OH",0.862993838347227,0.196294201225879,0.520929581408372,"democrat",35,"below","above","Ohio"
+"OK",0.681047197640118,0.249486599244068,0.554953979426096,"republican",46,"below","above","Oklahoma"
+"OR",2.1163714111179,0.138315833769432,0.506277962187906,"democrat",2,"above","below","Oregon"
+"PA",0.938438133874239,0.164369746394497,0.505781908570193,"democrat",27,"below","below","Pennsylvania"
+"RI",1.01690821256039,0.14279762210361,0.490498812351544,"democrat",21,"below","below","Rhode Island"
+"SC",0.609303739738522,0.244607155237014,0.544910179640719,"republican",48,"below","above","South Carolina"
+"SD",1.09120521172638,0.218515260757223,0.688059701492537,"republican",18,"above","above","South Dakota"
+"TN",0.820682068206821,0.190192829770043,0.506702412868633,"republican",39,"below","above","Tennessee"
+"TX",0.80034967006937,0.203909238388291,0.505531675005285,"republican",42,"below","above","Texas"
+"UT",1.2083885209713,0.230707562926877,0.543295579101206,"republican",14,"above","above","Utah"
+"VA",1.08593618098936,0.190326520754348,0.547885572139303,"democrat",19,"below","above","Virginia"
+"VT",1.9383429672447,0.164255788099747,0.552683896620278,"democrat",4,"above","below","Vermont"
+"WA",2.0034395365677,0.144350485740051,0.537905484774555,"democrat",3,"above","below","Washington"
+"WI",0.932161370295244,0.181966146628946,0.520309477756286,"democrat",28,"below","below","Wisconsin"
+"WV",0.6875,0.154143452969729,0.465034965034965,"republican",45,"below","below","West Virginia"
+"WY",0.911111111111111,0.225891589189845,0.465853658536585,"republican",30,"below","above","Wyoming"
+</script>
+    <script>render1Chart();</script>
+
+    <div id="chart"></div>
+    <script src="http://d3js.org/d3.v2.min.js"></script>
+    <script>
+function renderChart() {
+
+var data = d3.csv.parse(d3.select('#csv').text());
+var valueLabelWidth = 40; // space reserved for value labels (right)
+var barHeight = 20; // height of one bar
+var barLabelWidth = 100; // space reserved for bar labels
+var barLabelPadding = 5; // padding between bar and bar labels (left)
+var gridLabelHeight = 18; // space reserved for gridline labels
+var gridChartOffset = 3; // space between start of grid and first bar
+var maxBarWidth = 420; // width of the bar with the max value
+ 
+// accessor functions 
+var barLabel = function(d) { return d['state']; };
+var barValue = function(d) { return parseFloat(d['sentiment_score']); };
+ 
+// sorting
+var sortedData = data.sort(function(a, b) {
+ return d3.descending(barValue(a), barValue(b));
+}); 
+
+// scales
+var yScale = d3.scale.ordinal().domain(d3.range(0, sortedData.length)).rangeBands([0, sortedData.length * barHeight]);
+var y = function(d, i) { return yScale(i); };
+var yText = function(d, i) { return y(d, i) + yScale.rangeBand() / 2; };
+var x = d3.scale.linear().domain([0, d3.max(sortedData, barValue)]).range([0, maxBarWidth]);
+// svg container element
+var chart = d3.select('#chart').append("svg")
+  .attr('width', maxBarWidth + barLabelWidth + valueLabelWidth)
+  .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight);
+// grid line labels
+var gridContainer = chart.append('g')
+  .attr('transform', 'translate(' + barLabelWidth + ',' + gridLabelHeight + ')'); 
+gridContainer.selectAll("text").data(x.ticks(10)).enter().append("text")
+  .attr("x", x)
+  .attr("dy", -3)
+  .attr("text-anchor", "middle")
+  .text(String);
+// vertical grid lines
+gridContainer.selectAll("line").data(x.ticks(10)).enter().append("line")
+  .attr("x1", x)
+  .attr("x2", x)
+  .attr("y1", 0)
+  .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+  .style("stroke", "#ccc");
+// bar labels
+var labelsContainer = chart.append('g')
+  .attr('transform', 'translate(' + (barLabelWidth - barLabelPadding) + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
+labelsContainer.selectAll('text').data(sortedData).enter().append('text')
+  .attr('y', yText)
+  .attr('stroke', 'none')
+  .attr('fill', 'black')
+  .attr("dy", ".35em") // vertical-align: middle
+  .attr('text-anchor', 'end')
+  .text(barLabel);
+// bars
+var barsContainer = chart.append('g')
+  .attr('transform', 'translate(' + barLabelWidth + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
+barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
+  .attr('y', y)
+  .attr('height', yScale.rangeBand())
+  .attr('width', function(d) { return x(barValue(d)); })
+  .attr('stroke', 'white')
+  .attr('fill', 'black')
+//   .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
+;
+// bar value labels
+barsContainer.selectAll("text").data(sortedData).enter().append("text")
+  .attr("x", function(d) { return x(barValue(d)); })
+  .attr("y", yText)
+  .attr("dx", 3) // padding-left
+  .attr("dy", ".35em") // vertical-align: middle
+  .attr("text-anchor", "start") // text-align: right
+  .attr("fill", "black")
+  .attr("stroke", "none")
+  .text(function(d) { return d3.round(barValue(d), 2); });
+// start line
+// barsContainer.append("line")
+//   .attr("y1", -gridChartOffset)
+//   .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+//   .style("stroke", "#000");
+  
+  
+			d3.select("#inputstate").on("input", function(){
+				chart.selectAll("rect")
+        		.attr("id", function(d) {return d.id;})
+        		.attr("class", function(d) { if (d.state==d3.select("#inputstate").property("value")) {return "selected"}})} );
+
+
+}
+    </script>
+    <script id="csv" type="text/csv">"state","comment_rate","sentiment_score","duplication_rate","party","rank","average","sent_average","full_name"
+"AK",1.73524150268336,0.104124299413879,0.677319587628866,"republican",6,"above","below","Alaska"
+"AL",0.584197681513118,0.21037441945054,0.53733681462141,"republican",49,"below","above","Alabama"
+"AR",0.61025886864813,0.204344780592831,0.512175962293794,"republican",47,"below","above","Arkansas"
+"AZ",1.28390478270365,0.218849006306589,0.562510631059704,"republican",13,"above","above","Arizona"
+"CA",1.35201233087858,0.136221656277104,0.501621402513174,"democrat",10,"above","below","California"
+"CO",1.63393070489845,0.169719631834949,0.487715706346885,"democrat",7,"above","below","Colorado"
+"CT",0.962564991334489,0.180552786852655,0.532229024126756,"democrat",26,"below","below","Connecticut"
+"DC",2.58333333333333,0.204614937394428,0.700578990901571,"democrat",1,"above","above","D.C."
+"DE",1.31911764705882,0.151167241604691,0.647714604236343,"democrat",12,"above","below","Delaware"
+"FL",0.818036392721456,0.201384401462105,0.482441130937831,"democrat",40,"below","above","Florida"
+"GA",0.737565709664375,0.189806972548567,0.513706140350877,"republican",44,"below","above","Georgia"
+"HI",1.00914913083257,0.124240064819169,0.491387126019946,"democrat",22,"below","below","Hawaii"
+"IA",0.881377551020408,0.193093257981647,0.564399421128799,"democrat",31,"below","above","Iowa"
+"ID",0.990144048521607,0.247972231488658,0.547473200612557,"republican",24,"below","above","Idaho"
+"IL",0.988201467380527,0.148671194470371,0.507775659676934,"democrat",25,"below","below","Illinois"
+"IN",0.817394888705688,0.172898164614104,0.508068582955118,"republican",41,"below","below","Indiana"
+"KS",0.865296803652968,0.244990152379713,0.555672823218997,"republican",34,"below","above","Kansas"
+"KY",0.739869281045752,0.167418760393011,0.521201413427562,"republican",43,"below","below","Kentucky"
+"LA",0.570061517429938,0.213548631739218,0.47242206235012,"republican",50,"below","above","Louisiana"
+"MA",1.45703268453911,0.145827603858713,0.526780088216761,"democrat",9,"above","below","Massachusetts"
+"MD",1.07861568041017,0.187238275269544,0.583679936621113,"democrat",20,"below","above","Maryland"
+"ME",1.49673811742777,0.114973423853375,0.50747198007472,"democrat",8,"above","below","Maine"
+"MI",0.919223708366116,0.184017836983659,0.488587731811698,"democrat",29,"below","below","Michigan"
+"MN",1.13053146542139,0.166919920727334,0.540322580645161,"democrat",17,"above","below","Minnesota"
+"MO",0.862854486285449,0.23308776930493,0.512122844827586,"republican",36,"below","above","Missouri"
+"MS",0.431642778390298,0.246164841459157,0.489144316730524,"republican",51,"below","above","Mississippi"
+"MT",1.199203187251,0.222749795416637,0.492801771871539,"republican",15,"above","above","Montana"
+"NC",0.826749435665914,0.192968574854676,0.522525597269625,"republican",38,"below","above","North Carolina"
+"ND",0.83029197080292,0.255228317358224,0.562637362637363,"republican",37,"below","above","North Dakota"
+"NE",0.878787878787879,0.181210594966032,0.532758620689655,"republican",32,"below","below","Nebraska"
+"NH",1.79531109107304,0.171393829893805,0.627825213460573,"democrat",5,"above","below","New Hampshire"
+"NJ",0.876009635822588,0.160211321265847,0.519411193788418,"democrat",33,"below","below","New Jersey"
+"NM",1.3265306122449,0.119182592943101,0.451282051282051,"democrat",11,"above","below","New Mexico"
+"NV",1.00474383301708,0.204108525265769,0.530217186024551,"democrat",23,"below","above","Nevada"
+"NY",1.15963217782482,0.132941031012699,0.504763534713903,"democrat",16,"above","below","New York"
+"OH",0.862993838347227,0.196294201225879,0.520929581408372,"democrat",35,"below","above","Ohio"
+"OK",0.681047197640118,0.249486599244068,0.554953979426096,"republican",46,"below","above","Oklahoma"
+"OR",2.1163714111179,0.138315833769432,0.506277962187906,"democrat",2,"above","below","Oregon"
+"PA",0.938438133874239,0.164369746394497,0.505781908570193,"democrat",27,"below","below","Pennsylvania"
+"RI",1.01690821256039,0.14279762210361,0.490498812351544,"democrat",21,"below","below","Rhode Island"
+"SC",0.609303739738522,0.244607155237014,0.544910179640719,"republican",48,"below","above","South Carolina"
+"SD",1.09120521172638,0.218515260757223,0.688059701492537,"republican",18,"above","above","South Dakota"
+"TN",0.820682068206821,0.190192829770043,0.506702412868633,"republican",39,"below","above","Tennessee"
+"TX",0.80034967006937,0.203909238388291,0.505531675005285,"republican",42,"below","above","Texas"
+"UT",1.2083885209713,0.230707562926877,0.543295579101206,"republican",14,"above","above","Utah"
+"VA",1.08593618098936,0.190326520754348,0.547885572139303,"democrat",19,"below","above","Virginia"
+"VT",1.9383429672447,0.164255788099747,0.552683896620278,"democrat",4,"above","below","Vermont"
+"WA",2.0034395365677,0.144350485740051,0.537905484774555,"democrat",3,"above","below","Washington"
+"WI",0.932161370295244,0.181966146628946,0.520309477756286,"democrat",28,"below","below","Wisconsin"
+"WV",0.6875,0.154143452969729,0.465034965034965,"republican",45,"below","below","West Virginia"
+"WY",0.911111111111111,0.225891589189845,0.465853658536585,"republican",30,"below","above","Wyoming"
+</script>
+    <script>renderChart();</script>
+
+
+  </body>
+</html>
+<br>
+<br>
+<h4 class="text-center">Engagement Levels by State</h4>
+<h5 class="text-center"> Move your cursor over each state to see the comment rate, mean sentiment score, and % of template comments.</h5>
+    
+
+<div id="tooltip"></div><!-- div to hold tooltip. -->
+<svg width="100" height="10">
+
+    <rect x="50" y="100" width="50" height="50"
+          style="stroke: #000000; fill: none;"/>
+
+</svg>
+	<svg width="950" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+	<script src="../static/js/uStates.js"></script> <!-- creates uStates. -->
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	
+	<script>
+		function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
+			return "<h4>"+n+"</h4><table>"+
+				"<tr><td>Comment rate</td><td>"+(d.comment_rate)+"</td></tr>"+
+				"<tr><td>Sentiment score</td><td>"+(d.sentiment_score)+"</td></tr>"+
+				"<tr><td>Template use</td><td>"+(d.duplication_rate)+"%</td></tr>"+
+				"</table>";}
+
+			var data;
+			var formatInputRow = function(row){
+				var Inside = {comment_rate: row.comment_rate};
+				var Output = {};
+				Output[row.state] = Inside;
+				return Output;
+			};
+			var insertOneRow = function(row, destination){
+				destination[row.state]={'comment_rate': Math.round(row.comment_rate*100)/100, 
+				'duplication_rate': Math.round(row.duplication_rate*100),
+				'sentiment_score': Math.round(row.sentiment_score*100)/100,
+				'color': d3.interpolate("#ffffff","#008B8B")(row.comment_rate/2),
+				};
+			};
+
+			var formatDataForMap = function(rows) {
+				var results = {};
+				rows.states.forEach(function(d) {insertOneRow(d, results);} );
+				return results;
+			};
+
+			d3.json('/fcc_db_json', function(error, rows) {
+				data = formatDataForMap(rows);
+				uStates.draw("#statesvg", data, tooltipHtml);
+
+			});
+	</script>
+
+</div>
+</div>
+    <!-- Contact Section -->
+    <section id="contact" class="container contact-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Neutral_Opinion</h2>
+                <h4>Feel free to email us to provide some feedback or give suggestions!</h4>
+                <h5><a href="mailto:feedback@startbootstrap.com">feedback@neutralopinion.com</a></h5>
+                 <h4>The data for this project came from<br>the Federal Communications Commission<br>and the Bureau of the Census</h4>
+				<img src="static/img/FCC_New_Logo.svg" width=100 height=100/>
+				<img src="static/img/Census_Bureau_seal.svg" width=100 height=100/>
+
+			</div>
+        </div>
+
+
+  </div>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <h4>Copyright &copy; Neutral_Opinion 2014</h4>
+        </div>
+    </footer>
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="../../static/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../../static/js/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../static/js/grayscale.js"></script>
+
+
+
+<script>
+   $(function() {
+   $("#state_button").click(function() {
+        $.ajax({
+           type: "GET",
+           url: $SCRIPT_ROOT + "/fcc_db_json_test/",
+           contentType: "application/json; charset=utf-8",
+           data: { 
+                   inputstate: $('input[name="inputstate"]').val()
+                 },
+            success: function(data) {
+               $ ('#state_rate').text(data.comment_rate);
+               $ ('#sent_score').text(data.sentiment_score);
+               $ ('#duplication_rate').text(data.duplication_rate);
+               $ ('#state').text(data.state);
+               $ ('#comment_rank').text(data.comment_rank);
+               $ ('#comment_average').text(data.comment_average);
+               $ ('#sent_average').text(data.sent_avergae);
+               $ ('#full_name1').text(data.full_name);
+               $ ('#full_name2').text(data.full_name);
+               $ ('#full_name3').text(data.full_name);
+           		}
+       		});     
+  		});
+    });
+   </script>
+   
+</body>
+
+</html>

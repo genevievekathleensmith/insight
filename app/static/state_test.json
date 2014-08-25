@@ -1,0 +1,208 @@
+{
+  "states": [
+    {
+      "comment_rate": 1.35201, 
+      "state": "CA"
+    }, 
+    {
+      "comment_rate": 1.15963, 
+      "state": "NY"
+    }, 
+    {
+      "comment_rate": 0.80035, 
+      "state": "TX"
+    }, 
+    {
+      "comment_rate": 0.818036, 
+      "state": "FL"
+    }, 
+    {
+      "comment_rate": 2.00344, 
+      "state": "WA"
+    }, 
+    {
+      "comment_rate": 0.988201, 
+      "state": "IL"
+    }, 
+    {
+      "comment_rate": 0.938438, 
+      "state": "PA"
+    }, 
+    {
+      "comment_rate": 1.45703, 
+      "state": "MA"
+    }, 
+    {
+      "comment_rate": 0.862994, 
+      "state": "OH"
+    }, 
+    {
+      "comment_rate": 0.919224, 
+      "state": "MI"
+    }, 
+    {
+      "comment_rate": 2.11637, 
+      "state": "OR"
+    }, 
+    {
+      "comment_rate": 1.63393, 
+      "state": "CO"
+    }, 
+    {
+      "comment_rate": 1.08594, 
+      "state": "VA"
+    }, 
+    {
+      "comment_rate": 0.87601, 
+      "state": "NJ"
+    }, 
+    {
+      "comment_rate": 1.2839, 
+      "state": "AZ"
+    }, 
+    {
+      "comment_rate": 0.826749, 
+      "state": "NC"
+    }, 
+    {
+      "comment_rate": 0.737566, 
+      "state": "GA"
+    }, 
+    {
+      "comment_rate": 1.13053, 
+      "state": "MN"
+    }, 
+    {
+      "comment_rate": 1.07862, 
+      "state": "MD"
+    }, 
+    {
+      "comment_rate": 0.932161, 
+      "state": "WI"
+    }, 
+    {
+      "comment_rate": 0.817395, 
+      "state": "IN"
+    }, 
+    {
+      "comment_rate": 0.820682, 
+      "state": "TN"
+    }, 
+    {
+      "comment_rate": 0.862854, 
+      "state": "MO"
+    }, 
+    {
+      "comment_rate": 0.962565, 
+      "state": "CT"
+    }, 
+    {
+      "comment_rate": 1.20839, 
+      "state": "UT"
+    }, 
+    {
+      "comment_rate": 0.739869, 
+      "state": "KY"
+    }, 
+    {
+      "comment_rate": 1.00474, 
+      "state": "NV"
+    }, 
+    {
+      "comment_rate": 0.881378, 
+      "state": "IA"
+    }, 
+    {
+      "comment_rate": 0.609304, 
+      "state": "SC"
+    }, 
+    {
+      "comment_rate": 1.79531, 
+      "state": "NH"
+    }, 
+    {
+      "comment_rate": 1.32653, 
+      "state": "NM"
+    }, 
+    {
+      "comment_rate": 0.584198, 
+      "state": "AL"
+    }, 
+    {
+      "comment_rate": 0.865297, 
+      "state": "KS"
+    }, 
+    {
+      "comment_rate": 0.681047, 
+      "state": "OK"
+    }, 
+    {
+      "comment_rate": 0.570062, 
+      "state": "LA"
+    }, 
+    {
+      "comment_rate": 1.49674, 
+      "state": "ME"
+    }, 
+    {
+      "comment_rate": 0.990144, 
+      "state": "ID"
+    }, 
+    {
+      "comment_rate": 0.610259, 
+      "state": "AR"
+    }, 
+    {
+      "comment_rate": 2.58333, 
+      "state": "DC"
+    }, 
+    {
+      "comment_rate": 0.878788, 
+      "state": "NE"
+    }, 
+    {
+      "comment_rate": 1.00915, 
+      "state": "HI"
+    }, 
+    {
+      "comment_rate": 1.93834, 
+      "state": "VT"
+    }, 
+    {
+      "comment_rate": 1.73524, 
+      "state": "AK"
+    }, 
+    {
+      "comment_rate": 1.1992, 
+      "state": "MT"
+    }, 
+    {
+      "comment_rate": 1.31912, 
+      "state": "DE"
+    }, 
+    {
+      "comment_rate": 0.6875, 
+      "state": "WV"
+    }, 
+    {
+      "comment_rate": 1.01691, 
+      "state": "RI"
+    }, 
+    {
+      "comment_rate": 0.431643, 
+      "state": "MS"
+    }, 
+    {
+      "comment_rate": 1.09121, 
+      "state": "SD"
+    }, 
+    {
+      "comment_rate": 0.830292, 
+      "state": "ND"
+    }, 
+    {
+      "comment_rate": 0.911111, 
+      "state": "WY"
+    }
+  ]
+}

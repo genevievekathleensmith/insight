@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+	.state{
+		fill: none;
+		stroke: #a9a9a9;
+		stroke-width: 1;
+	}
+	.state:hover{
+		fill-opacity:0.9;
+		stroke-width: 1;
+	}
+	
+	.bar:hover{
+		fill: steelblue;
+		}
+
+				
+	#tooltip {   
+		position: absolute;           
+		text-align: left;
+		padding: 20px;             
+		margin: 10px;
+		background: lightsteelblue;   
+		border: 1px;      
+		border-radius: 2px;           
+		pointer-events: none;         
+	}
+	#tooltip h4{
+		margin:0;
+		font-size:14px;
+	}
+	#tooltip{
+		background:rgba(0,0,0,0.9);
+		border:1px solid grey;
+		border-radius:5px;
+		font-size:12px;
+		width:auto;
+		padding:4px;
+		color:white;
+		opacity:0;
+	}
+	#tooltip table{
+		table-layout:fixed;
+	}
+	#tooltip tr td{
+		padding:0;
+		margin:0;
+	}
+	#tooltip tr td:nth-child(1){
+		width:100px;
+	}
+	#tooltip tr td:nth-child(2){
+		text-align:center;
+	}
+	
+</style>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NeutralOpinion</title>
+     <style>
+     .selected{fill: #b2d8b2;}
+     </style>
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/fonts/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+	<script type=text/javascript src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+	</script>
+
+	<script type=text/javascript>
+		var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	</script>
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-play-circle"></i> Neutral_Opinion
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">Use It</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h2 class="brand-heading">Neutral_Opinion</h2>
+                        <p class="intro-text">A tool for interpreting how people <i>really</i> feel about net neutrality.</p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Use Neutral_Opinion</h2>
+                <h4>Enter the name of the state you are interested in:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                        <input type="text" class="form-control" name = "inputstate" id="inputstate" placeholder="Enter State">
+                        </div>
+
+                    <button type="submit" class="btn btn-default page-scroll" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="state_button">Submit</button>
+                    <i class="fa fa-angle-double-down animated"></i>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Download Section -->
+   
+<div id="collapseOne" class="panel-collapse collapse">
+    
+	<h4 class="text-center">Here's where your state stands on net neutrality:</h4>
+	<p>Citizen engagement with net neutrality was</p><div id='comment_average' class='special''></div><p><b>average</b> in</p><div id='full_name1' class='special'></div>.
+	<p><br>There were<div id="state_rate" class="special"></div><p>comments submitted from</p><div id='full_name2' class='special'></div><p>per 1000 households with access to the internet.
+
+
+<svg width="950" height="600" class="chart" id="fig1"></svg>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+	<script>		
+			var dataset = [1.35201233087858,
+			1.15963217782482,
+			0.80034967006937,
+			0.818036392721456,
+			2.0034395365677,
+			0.988201467380527,
+			0.938438133874239,
+			1.45703268453911,
+			0.862993838347227,
+			0.919223708366116,
+			2.1163714111179,
+			1.63393070489845,
+			1.08593618098936,
+			0.876009635822588,
+			1.28390478270365,
+			0.826749435665914,
+			0.737565709664375,
+			1.13053146542139,
+			1.07861568041017,
+			0.932161370295244,
+			0.817394888705688,
+			0.820682068206821,
+			0.862854486285449,
+			0.962564991334489,
+			1.2083885209713,
+			0.739869281045752,
+			1.00474383301708,
+			0.881377551020408,
+			0.609303739738522,
+			1.79531109107304,
+			1.3265306122449,
+			0.584197681513118,
+			0.865296803652968,
+			0.681047197640118,
+			0.570061517429938,
+			1.49673811742777,
+			0.990144048521607,
+			0.61025886864813,
+			2.58333333333333,
+			0.878787878787879,
+			1.00914913083257,
+			1.9383429672447,
+			1.73524150268336,
+			1.199203187251,
+			1.31911764705882,
+			0.6875,
+			1.01690821256039,
+			0.431642778390298,
+			1.09120521172638,
+			0.83029197080292,
+			0.911111111111111
+			];
+
+			var width = 920,
+				barPadding = 1,
+				height = 300;
+
+			var y = d3.scale.linear()
+				.domain([d3.max(dataset),0])
+				.range([height,0]);
+
+			var margin = {top: 20, right: 30, bottom: 30, left: 40},
+				width = 960 - margin.left - margin.right,
+				height = 350 - margin.top - margin.bottom;
+	
+			var chart = d3.select(".chart")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var bar = chart.selectAll("g")
+				.data(dataset)
+				.enter().append("g")
+				;
+
+			bar.append("rect")
+				.attr("class","bar")
+				.attr("width", width/dataset.length - barPadding)
+				.attr("height", y)
+				.attr("x", function(d, i) { return i * (width / dataset.length) ;})
+				.attr("y", function(d) {return height - y(d);})
+				;
+
+// 			bar.append("text")
+// 				.attr("x", function(d, i) { return i * (width / dataset.length); })
+// 				.attr("dy", ".05em")
+// 				.attr("y", function(d) { return height - y(d);})
+// 				.text(function(d) { return Math.round(d*100)/100; });
+
+
+			d3.select("#inputstate").on("input", function(){
+				chart.selectAll("rect")
+        		.attr("id", function(d) {return d.id;})
+        		.attr("class", function(d) { if (d.state==d3.select("#inputstate").property("value")) {return "selected"}})} );
+
+
+	</script>
+
+<div>
+	<p><br>Of the comments submitted,<div id='duplication_rate' class='special'></div><p>were duplicates.
+	<p><br>The average sentiment of comments from</p><div id='full_name3' class='special'></div><p>had a score of<div id='sent_score' class='special'></div><p> which is</p><div id='sent_average' class='special'></div><p>the national average (0.185).
+</div>
+
+
+<div>
+<svg width="950" height="600" class="chart3" id="fig3"></svg>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+	<script>		
+			var dataset = [1.35201233087858,
+			1.15963217782482,
+			0.80034967006937,
+			0.818036392721456,
+			2.0034395365677,
+			0.988201467380527,
+			0.938438133874239,
+			1.45703268453911,
+			0.862993838347227,
+			0.919223708366116,
+			2.1163714111179,
+			1.63393070489845,
+			1.08593618098936,
+			0.876009635822588,
+			1.28390478270365,
+			0.826749435665914,
+			0.737565709664375,
+			1.13053146542139,
+			1.07861568041017,
+			0.932161370295244,
+			0.817394888705688,
+			0.820682068206821,
+			0.862854486285449,
+			0.962564991334489,
+			1.2083885209713,
+			0.739869281045752,
+			1.00474383301708,
+			0.881377551020408,
+			0.609303739738522,
+			1.79531109107304,
+			1.3265306122449,
+			0.584197681513118,
+			0.865296803652968,
+			0.681047197640118,
+			0.570061517429938,
+			1.49673811742777,
+			0.990144048521607,
+			0.61025886864813,
+			2.58333333333333,
+			0.878787878787879,
+			1.00914913083257,
+			1.9383429672447,
+			1.73524150268336,
+			1.199203187251,
+			1.31911764705882,
+			0.6875,
+			1.01690821256039,
+			0.431642778390298,
+			1.09120521172638,
+			0.83029197080292,
+			0.911111111111111
+			];
+
+			var width = 920,
+				barPadding = 1,
+				height = 300;
+
+			var y = d3.scale.linear()
+				.domain([d3.max(dataset),0])
+				.range([height,0]);
+
+			var margin = {top: 20, right: 30, bottom: 30, left: 40},
+				width = 960 - margin.left - margin.right,
+				height = 350 - margin.top - margin.bottom;
+	
+			var chart = d3.select(".chart3")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var bar = chart.selectAll("g")
+				.data(dataset)
+				.enter().append("g")
+				;
+
+			bar.append("rect")
+				.attr("class","bar")
+				.attr("width", width/dataset.length - barPadding)
+				.attr("height", y)
+				.attr("x", function(d, i) { return i * (width / dataset.length) ;})
+				.attr("y", function(d) {return height - y(d);})
+				;
+
+// 			bar.append("text")
+// 				.attr("x", function(d, i) { return i * (width / dataset.length); })
+// 				.attr("dy", ".05em")
+// 				.attr("y", function(d) { return height - y(d);})
+// 				.text(function(d) { return Math.round(d*100)/100; });
+
+
+			d3.select("#inputstate").on("input", function(){
+				chart.selectAll("rect")
+        		.attr("id", function(d) {return d.id;})
+        		.attr("class", function(d) { if (d.state==d3.select("#inputstate").property("value")) {return "selected"}})} );
+
+
+	</script>
+
+<div>
+</div>
+
+<div>
+
+<svg width="950" height="10" class="chart2"></svg>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+	<script>		
+			var dataset = [
+			];
+
+			var width = 920,
+				barPadding = 1,
+				height = 10;
+
+			var y = d3.scale.linear()
+				.domain([d3.max(dataset),0])
+				.range([height,0]);
+
+			var margin = {top: 20, right: 30, bottom: 30, left: 40},
+				width = 960 - margin.left - margin.right,
+				height = 10 - margin.top - margin.bottom;
+	
+			var chart = d3.select(".chart2")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var bar = chart.selectAll("g")
+				.data(dataset)
+				.enter().append("g")
+				;
+
+			bar.append("rect")
+				.attr("class","bar")
+				.attr("width", width/dataset.length - barPadding)
+				.attr("height", y)
+				.attr("x", function(d, i) { return i * (width / dataset.length) ;})
+				.attr("y", function(d) {return height - y(d);})
+				;
+
+// 			bar.append("text")
+// 				.attr("x", function(d, i) { return i * (width / dataset.length); })
+// 				.attr("dy", ".05em")
+// 				.attr("y", function(d) { return height - y(d);})
+// 				.text(function(d) { return Math.round(d*100)/100; });
+
+
+			d3.select("#inputstate").on("input", function(){
+				chart.selectAll("rect")
+        		.attr("id", function(d) {return d.id;})
+        		.attr("class", function(d) { if (d.state==d3.select("#inputstate").property("value")) {return "selected"}})} );
+
+
+	</script>
+
+</div>
+
+<h4>Engagement Levels by State</h4>
+    
+<div id="tooltip"></div><!-- div to hold tooltip. -->
+
+	<svg width="950" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+	<script src="../static/js/uStates.js"></script> <!-- creates uStates. -->
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	
+	<script>
+		function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
+			return "<h4>"+n+"</h4><table>"+
+				"<tr><td>Comment rate</td><td>"+(d.comment_rate)+"</td></tr>"+
+				"<tr><td>Sentiment score</td><td>"+(d.sentiment_score)+"</td></tr>"+
+				"<tr><td>Template use</td><td>"+(d.duplication_rate)+"%</td></tr>"+
+				"</table>";}
+
+			var data;
+			var formatInputRow = function(row){
+				var Inside = {comment_rate: row.comment_rate};
+				var Output = {};
+				Output[row.state] = Inside;
+				return Output;
+			};
+			var insertOneRow = function(row, destination){
+				destination[row.state]={'comment_rate': Math.round(row.comment_rate*100)/100, 
+				'duplication_rate': Math.round(row.duplication_rate*100),
+				'sentiment_score': Math.round(row.sentiment_score*100)/100,
+				'color': d3.interpolate("#ffffff","#008B8B")(row.comment_rate/2),
+				};
+			};
+
+			var formatDataForMap = function(rows) {
+				var results = {};
+				rows.states.forEach(function(d) {insertOneRow(d, results);} );
+				return results;
+			};
+
+			d3.json('/fcc_db_json', function(error, rows) {
+				data = formatDataForMap(rows);
+				uStates.draw("#statesvg", data, tooltipHtml);
+
+			});
+	</script>
+
+</div>
+</div>
+    <!-- Contact Section -->
+    <section id="contact" class="container contact-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Neutral_Opinion</h2>
+                <h4>Feel free to email us to provide some feedback or give suggestions!</h4>
+                <h5><a href="mailto:feedback@startbootstrap.com">feedback@neutralopinion.com</a></h5>
+                 <h4>The data for this project came from<br>the Federal Communications Commission<br>and the Bureau of the Census</h4>
+				<img src="static/img/FCC_New_Logo.svg" width=100 height=100/>
+				<img src="static/img/Census_Bureau_seal.svg" width=100 height=100/>
+
+			</div>
+        </div>
+
+
+  </div>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <h4>Copyright &copy; Neutral_Opinion 2014</h4>
+        </div>
+    </footer>
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="../../static/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../../static/js/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../static/js/grayscale.js"></script>
+
+
+
+<script>
+   $(function() {
+   $("#state_button").click(function() {
+        $.ajax({
+           type: "GET",
+           url: $SCRIPT_ROOT + "/fcc_db_json_test/",
+           contentType: "application/json; charset=utf-8",
+           data: { 
+                   inputstate: $('input[name="inputstate"]').val()
+                 },
+            success: function(data) {
+               $ ('#state_rate').text(data.comment_rate);
+               $ ('#sent_score').text(data.sentiment_score);
+               $ ('#duplication_rate').text(data.duplication_rate);
+               $ ('#state').text(data.state);
+               $ ('#comment_rank').text(data.comment_rank);
+               $ ('#comment_average').text(data.comment_average);
+               $ ('#sent_average').text(data.sent_avergae);
+               $ ('#full_name1').text(data.full_name);
+               $ ('#full_name2').text(data.full_name);
+               $ ('#full_name3').text(data.full_name);
+           		}
+       		});     
+  		});
+    });
+   </script>
+   
+</body>
+
+</html>
