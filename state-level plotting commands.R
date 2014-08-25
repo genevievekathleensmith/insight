@@ -39,8 +39,78 @@ write.csv(political$comment_rate,'comment_rates.csv',row.names=F)
 
 write.csv(political,'Documents/insight/state_level_summary.csv',row.names=F)
 
+
+head(political)
+
+political$percentile = quantile(political$comment_rate,propbs = )
+perc.rank <- function(x) trunc(rank(x))/length(x)
+perc.rank(political$comment_rate)*100
+
+average = c("above","below")[(political$comment_rate<mean(political$comment_rate))+1]
+average
+
+political$rank = length(political$comment_rate)-rank(political$comment_rate)+1
+political$average = c("above","below")[(political$comment_rate<mean(political$comment_rate))+1]
+
+
+political$sent
+political$sent_average = c("above","below")[(political$sentiment_score<mean(political$sentiment_score))+1]
+
+political$full_name = c('Alaska',
+                        'Alabama',
+                        'Arkansas',
+                        'Arizona',
+                        'California',
+                        'Colorado',
+                        'Connecticut',
+                        'D.C.',
+                        'Delaware',
+                        'Florida',
+                        'Georgia',
+                        'Hawaii',
+                        'Iowa',
+                        'Idaho',
+                        'Illinois',
+                        'Indiana',
+                        'Kansas',
+                        'Kentucky',
+                        'Louisiana',
+                        'Massachusetts',
+                        'Maryland',
+                        'Maine',
+                        'Michigan',
+                        'Minnesota',
+                        'Missouri',
+                        'Mississippi',
+                        'Montana',
+                        'North Carolina',
+                        'North Dakota',
+                        'Nebraska',
+                        'New Hampshire',
+                        'New Jersey',
+                        'New Mexico',
+                        'Nevada',
+                        'New York',
+                        'Ohio',
+                        'Oklahoma',
+                        'Oregon',
+                        'Pennsylvania',
+                        'Rhode Island',
+                        'South Carolina',
+                        'South Dakota',
+                        'Tennessee',
+                        'Texas',
+                        'Utah',
+                        'Virginia',
+                        'Vermont',
+                        'Washington',
+                        'Wisconsin',
+                        'West Virginia',
+                        'Wyoming')
+
 party_color = c("red", "blue")[(political$party=='democrat')+1]
 
+write.csv(political,'~/Documents/insight/complete_state_data.csv',row.names=F)
 
 library(scales)
 
