@@ -25,11 +25,11 @@ def whatever():
 
 @app.route("/fcc_db_json_test/", methods=["GET"])
 def anything():
-	fcc_db = mdb.connect(user="root", host="localhost", db="FCC", charset="utf8")
+	fcc_test_db = mdb.connect(user="root", host="localhost", db="FCC", charset="utf8")
 	print 'hello'
 	inputstate = request.args.get('inputstate')
-	with fcc_db:
-		cur = fcc_db.cursor()
+	with fcc_test_db:
+		cur = fcc_test_db.cursor()
 		cur.execute("SELECT state, comment_rate, sentiment_score, duplication_rate, rank, average, sent_average, full_name FROM states WHERE state = '%s'" %(inputstate))
 		query_results = cur.fetchall()
 		mydict = {'state':query_results[0][0], 
