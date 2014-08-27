@@ -102,7 +102,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i> Neutral_Opinion
+                    <i class="fa fa-play-circle"></i><font color=#00b796> Neutral_Opinion</font>
                 </a>
             </div>
 
@@ -136,7 +136,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h2 class="brand-heading">Neutral_Opinion</h2>
-                        <p class="intro-text">A tool for interpreting how people <i>really</i> feel about net neutrality.</p>
+                        <p class="intro-text"><font color=#00b796>Visualizing how people <i>really</i> feel about net neutrality.</font></p><br><br>
                         <a href="#slides" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
@@ -266,14 +266,6 @@
 
 <style>
     .selected{fill: #00b796;}
-
-	.rect:hover{
-		fill: steelblue;
-		}
-	.bar:hover{
-		fill: #ffffff;
-	}
-
      </style>
    
   <body>
@@ -357,7 +349,7 @@ barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
 barsContainer.selectAll("text").data(sortedData).enter().append("text")
   .attr("x", function(d) { return x(barValue(d)); })
   .attr("y", yText)
-  .attr("dx", 3) // padding-left
+  .attr("dx", -30) // padding-left
   .attr("dy", ".35em") // vertical-align: middle
   .attr("text-anchor", "start") // text-align: right
   .attr("fill", "black")
@@ -505,7 +497,7 @@ barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
 barsContainer.selectAll("text").data(sortedData).enter().append("text")
   .attr("x", function(d) { return x(barValue(d)); })
   .attr("y", yText)
-  .attr("dx", 3) // padding-left
+  .attr("dx",  -30) // padding-left
   .attr("dy", ".35em") // vertical-align: middle
   .attr("text-anchor", "start") // text-align: right
   .attr("fill", "black")
@@ -642,7 +634,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Contact Neutral_Opinion</h2>
-                <h4>Feel free to email us to provide some feedback or give suggestions!</h4>
+                <h4><font color = #00b796>Feel free to email us to provide some feedback or give suggestions!</font></h4>
                 <h5><a href="mailto:feedback@startbootstrap.com">feedback@neutralopinion.com</a></h5>
                  <h4>The data for this project came from<br>the Federal Communications Commission<br>and the Bureau of the Census</h4>
 				<img src="static/img/FCC_New_Logo.svg" width=100 height=100/>

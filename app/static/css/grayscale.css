@@ -68,7 +68,7 @@ a {
 a:hover,
 a:focus {
     text-decoration: none;
-    color: #6666;
+    color: #00b796;
 }
 
 .light {
@@ -234,10 +234,10 @@ a:focus {
     height: 70px;
     margin-top: 15px;
     padding: 7px 16px;
-    border: 2px solid #000000;
+    border: 2px solid #00b796;
     border-radius: 35px;
     font-size: 40px;
-    color: #000000;
+    color: #00b796;
     background: 0 0;
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
@@ -247,7 +247,7 @@ a:focus {
 .btn-circle-blk:hover,
 .btn-circle-blk:focus {
     outline: 0;
-    color: #000000;
+    color: #00b796;
     background: rgba(52, 52, 52,.1);
 }
 .btn-circle-blk i.animated {
