@@ -15,6 +15,9 @@
 		fill: steelblue;
 		}
 
+	.rect:hover{
+		fill: steelblue;
+		}
 				
 	#tooltip {   
 		position: absolute;           
@@ -149,8 +152,9 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h2>About Neutral_Opinion</h2>
-                        <iframe src="//www.slideshare.net/slideshow/embed_code/38312034" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/smith_gk/working-demo" title="Working demo" target="_blank">Working demo</a> </strong> from <strong><a href="http://www.slideshare.net/smith_gk" target="_blank">smith_gk</a></strong> </div>
-                        <a href="#about" class="btn btn-circle page-scroll">
+                        <iframe src="//www.slideshare.net/slideshow/embed_code/38390790" width="595" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe><div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/smith_gk/working-demo" title="Working demo" target="_blank">Working demo</a> </strong> from <strong><a href="http://www.slideshare.net/smith_gk" target="_blank">smith_gk</a></strong> </div>
+
+                        <a href="#about" class="btn btn-circle-blk page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
                     </div>
@@ -165,14 +169,67 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Use Neutral_Opinion</h2>
                 <h4>Enter the name of the state you are interested in:</h4>
+                      <div class="col-lg-4 col-lg-offset-2">
                     <form role="form">
                         <div class="form-group">
-                        <input type="text" class="form-control" name = "inputstate" id="inputstate" placeholder="Enter State">
+                        <select class="form-control" name = "inputstate" id = 'inputstate' placeholder="Enter State">
+						<option >Select a state</option>
+						<option value ="AL">Alabama</option>
+ 						<option value ="AK">Alaska</option>
+ 						<option value ="AZ">Arizona</option>
+ 						<option value ="AR">Arkansas</option>
+ 						<option value ="CA">California</option>
+ 						<option value ="CO">Colorado</option>
+ 						<option value ="CT">Connecticut</option>
+ 						<option value ="DE">Delaware</option>
+ 						<option value ="DC">District of Columbia</option>
+ 						<option value ="FL">Florida</option>
+ 						<option value ="GA">Georgia</option>
+ 						<option value ="HI">Hawaii</option>
+ 						<option value ="ID">Idaho</option>
+ 						<option value ="IL">Illinois</option>
+ 						<option value ="IN">Indiana</option>
+ 						<option value ="IA">Iowa</option>
+ 						<option value ="KS">Kansas</option>
+ 						<option value ="KY">Kentucky</option>
+ 						<option value ="LA">Louisiana</option>
+ 						<option value ="ME">Maine</option>
+ 						<option value ="MD">Maryland</option>
+ 						<option value ="MA">Massachusetts</option>
+ 						<option value ="MI">Michigan</option>
+ 						<option value ="MN">Minnesota</option>
+ 						<option value ="MS">Mississippi</option>
+ 						<option value ="MO">Missouri</option>
+ 						<option value ="MT">Montana</option>
+ 						<option value ="NE">Nebraska</option>
+ 						<option value ="NV">Nevada</option>
+ 						<option value ="NH">New Hampshire</option>
+ 						<option value ="NJ">New Jersey</option>
+ 						<option value ="NM">New Mexico</option>
+ 						<option value ="NY">New York</option>
+ 						<option value ="NC">North Carolina</option>
+ 						<option value ="ND">North Dakota</option>
+ 						<option value ="OH">Ohio</option>
+						<option value ="OK">Oklahoma</option>
+						<option value ="OR">Oregon</option>
+						<option value ="PA">Pennsylvania</option>
+						<option value ="RI">Rhode Island</option>
+						<option value ="SC">South Carolina</option>
+						<option value ="SD">South Dakota</option>
+						<option value ="TN">Tennessee</option>
+						<option value ="TX">Texas</option>
+						<option value ="UT">Utah</option>
+						<option value ="VT">Vermont</option>
+						<option value ="WA">Washington</option>
+						<option value ="WV">West Virginia</option>
+						<option value ="WI">Wisconsin</option>
+						<option value ="WY">Wyoming</option>
+						</select>
+						</div>
                         </div>
-
                     <button type="submit" class="btn btn-default page-scroll" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="state_button">Submit</button>
-                    <i class="fa fa-angle-double-down animated"></i>
-
+<!--                     <i class="fa fa-angle-double-down animated"></i>
+ -->
                 </form>
             </div>
         </div>
@@ -183,22 +240,21 @@
     <!-- Download Section -->
    
 <div id="collapseOne" class="panel-collapse collapse">
-    
+ <section class="container content-section text-center">   
 	<h4 class="text-center">Here's where your state stands on net neutrality:</h4>
-	<h5 class="text-center">Citizen engagement with net neutrality was <div id='comment_average' class='special''></div> average in <div id='full_name1' class='special'></div>.</h5>
-	<h5 class="text-center">There were <div id="state_rate" class="special"></div> comments submitted from <div id='full_name2' class='special'></div> per 100 households with access to the internet.</h5>
+	<h5 class="text-center"><font color=#00b796>Citizen engagement</font> with net neutrality was <div id="comment_average" class="special"></div> <font color=#00b796>average</font> in <div id='full_name1' class='special'></div>.</h5>
+	<h5 class="text-center">There were <div id="state_rate" class="special"></div> <font color=#00b796>comments per 100 households</font> with access to the internet submitted from <div id='full_name2' class='special'></div>.</h5>
 
+	<h5>Citizens from <div id='full_name5' class='special'></div> submitted more comments than <div id='comment_rank' class='special'></div> <font color=#00b796>other states.</font></h5>
 
-
-	<h5 class="text-center">Of the comments submitted, <div id='duplication_rate' class='special'></div>% came from templates or form letters.</h5>
-	<h5 class="text-center">The average sentiment of comments from <div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div> which is <div id='sent_average' class='special'></div> the national average (0.185).</h5>
+	<h5 class="text-center">Of the comments submitted from <div id='full_name4' class='special'></div> <div id='duplication_rate' class='special'></div><font color=#00b796>% came from templates</font> or form letters.</h5>
+	<h5 class="text-center">The <font color=#00b796>average sentiment of comments</font> from <div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div> which is <div id='sent_average' class='special'></div> <font color=#00b796>the national average (0.185).</font></h5>
 
 <br>
 <br>
 <br>
 
 <h4 class="text-center">State rankings by engagement (left) and sentiment (right)</h4>
-<br>
 <br>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- Generated with d3-generator.com -->
@@ -214,6 +270,9 @@
 	.rect:hover{
 		fill: steelblue;
 		}
+	.bar:hover{
+		fill: #ffffff;
+	}
 
      </style>
    
@@ -225,7 +284,7 @@ function render1Chart() {
 
 var data = d3.csv.parse(d3.select('#csv').text());
 var valueLabelWidth = 40; // space reserved for value labels (right)
-var barHeight = 20; // height of one bar
+var barHeight = 15; // height of one bar
 var barLabelWidth = 100; // space reserved for bar labels
 var barLabelPadding = 5; // padding between bar and bar labels (left)
 var gridLabelHeight = 18; // space reserved for gridline labels
@@ -249,7 +308,8 @@ var x = d3.scale.linear().domain([0, d3.max(sortedData, barValue)]).range([0, ma
 // svg container element
 var chart = d3.select('#chart').append("svg")
   .attr('width', maxBarWidth + barLabelWidth + valueLabelWidth)
-  .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight);
+  .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight)
+  ;
 // grid line labels
 var gridContainer = chart.append('g')
   .attr('transform', 'translate(' + barLabelWidth + ',' + gridLabelHeight + ')'); 
@@ -284,7 +344,14 @@ barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
   .attr('width', function(d) { return x(barValue(d)); })
   .attr('stroke', 'white')
   .attr('fill', 'black')
-//   .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
+  .attr('title', function(d) { return d['state']; })
+  .on("mouseover", function(d) {
+  	var xPosition = parseFloat(d3.select(this).attr("x"));
+  	var yPosition = parseFloat(d3.select(this).attr("y"));
+  })
+
+  ;
+    // .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
 ;
 // bar value labels
 barsContainer.selectAll("text").data(sortedData).enter().append("text")
@@ -303,12 +370,10 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
 //   .style("stroke", "#000")
   ;
 
-
-			d3.select("#inputstate").on("input", function(){
+			d3.select("#inputstate").on("change", function(){
 				chart.selectAll("rect")
         		.attr("id", function(d) {return d.id;})
         		.attr("class", function(d) { if (d.state==d3.select("#inputstate").property("value")) {return "selected"}})} );
-
 }
     </script>
     <script id="csv" type="text/csv">"state","comment_rate","sentiment_score","duplication_rate","party","rank","average","sent_average","full_name"
@@ -364,7 +429,9 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
 "WV",0.6875,0.154143452969729,0.465034965034965,"republican",45,"below","below","West Virginia"
 "WY",0.911111111111111,0.225891589189845,0.465853658536585,"republican",30,"below","above","Wyoming"
 </script>
-    <script>render1Chart();</script>
+    <script>render1Chart();
+
+    </script>
 
     <div id="chart"></div>
     <script src="http://d3js.org/d3.v2.min.js"></script>
@@ -373,7 +440,7 @@ function renderChart() {
 
 var data = d3.csv.parse(d3.select('#csv').text());
 var valueLabelWidth = 40; // space reserved for value labels (right)
-var barHeight = 20; // height of one bar
+var barHeight = 15; // height of one bar
 var barLabelWidth = 100; // space reserved for bar labels
 var barLabelPadding = 5; // padding between bar and bar labels (left)
 var gridLabelHeight = 18; // space reserved for gridline labels
@@ -383,10 +450,10 @@ var maxBarWidth = 420; // width of the bar with the max value
 // accessor functions 
 var barLabel = function(d) { return d['state']; };
 var barValue = function(d) { return parseFloat(d['sentiment_score']); };
- 
+var sortValue = function(d) { return parseFloat(d['sentiment_score']); }; 
 // sorting
 var sortedData = data.sort(function(a, b) {
- return d3.descending(barValue(a), barValue(b));
+ return d3.descending(sortValue(a), sortValue(b));
 }); 
 
 // scales
@@ -432,7 +499,7 @@ barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
   .attr('width', function(d) { return x(barValue(d)); })
   .attr('stroke', 'white')
   .attr('fill', 'black')
-//   .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
+   // .attr("class", function(d) { if (d.state=='TX') {return "selected"}})
 ;
 // bar value labels
 barsContainer.selectAll("text").data(sortedData).enter().append("text")
@@ -512,24 +579,22 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
 "WV",0.6875,0.154143452969729,0.465034965034965,"republican",45,"below","below","West Virginia"
 "WY",0.911111111111111,0.225891589189845,0.465853658536585,"republican",30,"below","above","Wyoming"
 </script>
-    <script>renderChart();</script>
+    <script>renderChart()
+    ;</script>
 
 
   </body>
 </html>
 <br>
 <br>
-<h4 class="text-center">Engagement Levels by State</h4>
-<h5 class="text-center"> Move your cursor over each state to see the comment rate, mean sentiment score, and % of template comments.</h5>
+<br>
+<br>
+<h4 class="text-center">Geography of Engagement, Sentiment, and Template Use</h4>
+<h5 class="text-center"> Move your cursor over each state to see the<br>level of engagement (# comments/100 households with access to the internet),<br>mean sentiment score, and % of template comments.</h5>
     
 
 <div id="tooltip"></div><!-- div to hold tooltip. -->
-<svg width="100" height="10">
 
-    <rect x="50" y="100" width="50" height="50"
-          style="stroke: #000000; fill: none;"/>
-
-</svg>
 	<svg width="950" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
 	<script src="../static/js/uStates.js"></script> <!-- creates uStates. -->
 	<script src="http://d3js.org/d3.v3.min.js"></script>
@@ -537,7 +602,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
 	<script>
 		function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
 			return "<h4>"+n+"</h4><table>"+
-				"<tr><td>Comment rate</td><td>"+(d.comment_rate)+"</td></tr>"+
+				"<tr><td>Engagement</td><td>"+(Math.round(d.comment_rate*100)/10)+"/100</td></tr>"+
 				"<tr><td>Sentiment score</td><td>"+(d.sentiment_score)+"</td></tr>"+
 				"<tr><td>Template use</td><td>"+(d.duplication_rate)+"%</td></tr>"+
 				"</table>";}
@@ -569,7 +634,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
 
 			});
 	</script>
-
+</section>
 </div>
 </div>
     <!-- Contact Section -->
@@ -625,19 +690,22 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
            url: $SCRIPT_ROOT + "/fcc_db_json_test/",
            contentType: "application/json; charset=utf-8",
            data: { 
-                   inputstate: $('input[name="inputstate"]').val()
+                   inputstate: $('select[name="inputstate"]').val()
                  },
             success: function(data) {
                $ ('#state_rate').text(Math.round(data.comment_rate*10,2));
                $ ('#sent_score').text(data.sentiment_score);
                $ ('#duplication_rate').text(data.duplication_rate);
                $ ('#state').text(data.state);
-               $ ('#comment_rank').text(data.comment_rank);
+               $ ('#state2').text(data.state);
+               $ ('#comment_rank').text(51-data.comment_rank);
                $ ('#comment_average').text(data.comment_average);
                $ ('#sent_average').text(data.sent_avergae);
                $ ('#full_name1').text(data.full_name);
                $ ('#full_name2').text(data.full_name);
                $ ('#full_name3').text(data.full_name);
+               $ ('#full_name4').text(data.full_name);
+               $ ('#full_name5').text(data.full_name);
            		}
        		});     
   		});
