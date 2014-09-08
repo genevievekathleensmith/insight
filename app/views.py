@@ -30,7 +30,7 @@ def anything():
 	inputstate = request.args.get('inputstate')
 	with fcc_test_db:
 		cur = fcc_test_db.cursor()
-		cur.execute("SELECT state, comment_rate, sentiment_score, duplication_rate, rank, average, sent_average, full_name FROM states WHERE state = '%s'" %(inputstate))
+		cur.execute("SELECT state, comment_rate, sentiment_score, duplication_rate, rank, average, sent_average, full_name, sent_rank, comm_rank FROM states WHERE state = '%s'" %(inputstate))
 		query_results = cur.fetchall()
 		mydict = {'state':query_results[0][0], 
 			'comment_rate':round(query_results[0][1],2), 
@@ -40,6 +40,8 @@ def anything():
 			'comment_average':query_results[0][5],
 			'sent_avergae':query_results[0][6],
 			'full_name':query_results[0][7]}
+			'sent_rank':query_results[0][8]}
+			'comm_rank':query_results[0][9]}
 		print mydict	
     	return jsonify(mydict)
 
