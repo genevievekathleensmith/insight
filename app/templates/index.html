@@ -241,7 +241,7 @@
    
 <div id="collapseOne" class="panel-collapse collapse">
  <section class="container content-section text-center">   
-	<h2 class="text-center">Here's where your state stands on net neutrality:</h2>
+	<h2 class="text-center">Here's where <div id='full_name6' class='special'></div> stands on net neutrality:</h2>
 
 	<h5 class="text-center"><div id='full_name1' class='special'></div> ranked <div id='comm_rank' class='special'></div> in <font color=#00b796>Citizen engagement</font> on net neutrality, placing it  
 	<div id="comment_average" class="special"></div> the national <font color=#00b796>average</font>.</h5>
@@ -252,17 +252,20 @@
 	<h5>This means that citizens from <div id='full_name5' class='special'></div> submitted more comments 
 	than <div id='comment_rank' class='special'></div> <font color=#00b796>other states.</font></h5>
 	<br>
+	<br>
 	
-	<h5 class="text-center">The <font color=#00b796>average sentiment expressed by the <font color=#00b796>vocabulary</font> of comments</font> from 
-	<div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div> which 
-	is <div id='sent_average' class='special'></div> <font color=#00b796>the national average (0.185).</font></h5>
+	<h5 class="text-center">The average sentiment expressed by the <font color=#00b796>vocabulary</font> of comments</font> from 
+	<div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div></h5>
+	 
+	<h5>This was <div id='sent_average' class='special'></div> the <font color=#00b796>national average (0.185).</font></h5>
 
 	<h5 class="text-center">Overall, these comments were ranked <div id='sent_rank' class='special'></div>-most negative across the U.S.</h5>
+	<br>
 	<br>
 	
 	<h5 class="text-center">Of the comments submitted from <div id='full_name4' class='special'></div> 
 	<div id='duplication_rate' class='special'></div><font color=#00b796>% came from templates</font> or form letters.</h5>
-	<h5 class="text-center">The nation-wide level of template use was approximately <font color=#00b796>51.8%</font>.</h5>
+	<h5 class="text-center">The <font color=#00b796>nation-wide level</font> of template use was approximately <font color=#00b796>51.8%</font>.</h5>
 
 
 <br>
@@ -713,6 +716,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
                $ ('#full_name3').text(data.full_name);
                $ ('#full_name4').text(data.full_name);
                $ ('#full_name5').text(data.full_name);
+               $ ('#full_name6').text(data.full_name);
                $ ('#sent_rank').text(data.sent_rank);
                $ ('#comm_rank').text(data.comm_rank);
            		}
