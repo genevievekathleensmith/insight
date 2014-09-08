@@ -251,19 +251,18 @@
 
 	<h5>This means that citizens from <div id='full_name5' class='special'></div> submitted more comments 
 	than <div id='comment_rank' class='special'></div> <font color=#00b796>other states.</font></h5>
-	<span class="glyphicon glyphicon-bullhorn"></span><br>
-
+	<h3 class="glyphicon glyphicon-bullhorn"></h3><br>
 	
 	<h5 class="text-center">The average sentiment expressed by the <font color=#00b796>vocabulary</font> of comments</font> from 
 	<div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div></h5>
 	 
 	<h5>This was <div id='sent_average' class='special'></div> the <font color=#00b796>national average (0.185).</font></h5>
 
-	<h5 class="text-center">Overall, these comments were ranked <div id='sent_rank' class='special'></div>-most negative across the U.S.</h5>
+	<h5 class="text-center">Overall, these comments ranked <div id='sent_rank' class='special'></div>-most negative across the U.S.</h5>
 	<h3 class="glyphicon glyphicon-bullhorn"></h3><br>
 	
-	<h5 class="text-center">Of the comments submitted from <div id='full_name4' class='special'></div> 
-	<div id='duplication_rate' class='special'></div><font color=#00b796>% came from templates</font> or form letters.</h5>
+	<h5 class="text-center"><div id='duplication_rate' class='special'></div><font color=#00b796>%</font> of the comments submitted from <div id='full_name4' class='special'></div> 
+	came from <font color=#00b796>templates or form letters</font>.</h5>
 	<h5 class="text-center">The <font color=#00b796>nation-wide level</font> of template use was approximately <font color=#00b796>51.8%</font>.</h5>
 
 
@@ -272,6 +271,9 @@
 <br>
 
 <h2 class="text-center">State rankings by engagement (left) and sentiment (right)</h2>
+<h5> Engagement is measured as the number of comments submitted per 100 households with internet access. Sentiment was scored using the <a href = "http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010">AFINN</a> library.</h2>
+<h5 class="text-center"><div id='full_name7' class='special'></div> is highlighted in <font color=#00b796>green</font> in both figures.</h5>  
+
 <br>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- Generated with d3-generator.com -->
@@ -599,7 +601,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
 <br>
 <br>
 <h2 class="text-center">Geography of Engagement, Sentiment, and Template Use</h2>
-<h5 class="text-center"> Move your cursor over each state to see the<br>level of engagement (# comments/100 households with access to the internet),<br>mean sentiment score, and % of template comments.</h5>
+<h5 class="text-center"> Move your cursor over each state to see the<br>level of engagement (# comments/100 households with access to the internet),<br>mean sentiment score,<br>and % of template comments.</h5>
     
 
 <div id="tooltip"></div><!-- div to hold tooltip. -->
@@ -716,6 +718,7 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
                $ ('#full_name4').text(data.full_name);
                $ ('#full_name5').text(data.full_name);
                $ ('#full_name6').text(data.full_name);
+               $ ('#full_name7').text(data.full_name);
                $ ('#sent_rank').text(data.sent_rank);
                $ ('#comm_rank').text(data.comm_rank);
            		}
