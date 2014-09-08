@@ -15,11 +15,11 @@ def whatever():
 	fcc_db = mdb.connect(user="root", host="localhost", db="FCC", charset="utf8")
 	with fcc_db:
 		cur = fcc_db.cursor()
-		cur.execute("SELECT state, comment_rate, sentiment_score, duplication_rate FROM states;")
+		cur.execute("SELECT state, comment_rate, sentiment_score, duplication_rate, sent_rank FROM states;")
 		query_results = cur.fetchall()
 	states = []
 	for result in query_results:
-		states.append(dict(state=result[0], comment_rate=result[1], sentiment_score=result[2], duplication_rate=result[3]))
+		states.append(dict(state=result[0], comment_rate=result[1], sentiment_score=result[2], duplication_rate=result[3], sentiment_rank=result[4]))
 	return jsonify(dict(states=states))
 
 
@@ -39,8 +39,8 @@ def anything():
 			'comment_rank':query_results[0][4],
 			'comment_average':query_results[0][5],
 			'sent_avergae':query_results[0][6],
-			'full_name':query_results[0][7]}
-			'sent_rank':query_results[0][8]}
+			'full_name':query_results[0][7],
+			'sent_rank':query_results[0][8],
 			'comm_rank':query_results[0][9]}
 		print mydict	
     	return jsonify(mydict)
