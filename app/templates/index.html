@@ -250,6 +250,8 @@
 	<h5 class="text-center">Of the comments submitted from <div id='full_name4' class='special'></div> <div id='duplication_rate' class='special'></div><font color=#00b796>% came from templates</font> or form letters.</h5>
 	<h5 class="text-center">The <font color=#00b796>average sentiment of comments</font> from <div id='full_name3' class='special'></div> had a score of <div id='sent_score' class='special'></div> which is <div id='sent_average' class='special'></div> <font color=#00b796>the national average (0.185).</font></h5>
 
+	<h5 class="text-center">The <font color=#00b796>average sentiment of comments</font> from <div id='comm_rank' class='special'></div> had a score of <div id='sent_rank' class='special'></div> which is  <font color=#00b796>the national average (0.185).</font></h5>
+
 <br>
 <br>
 <br>
@@ -698,6 +700,8 @@ barsContainer.selectAll("text").data(sortedData).enter().append("text")
                $ ('#full_name3').text(data.full_name);
                $ ('#full_name4').text(data.full_name);
                $ ('#full_name5').text(data.full_name);
+               $ ('#sent_rank').text(data.full_name);
+               $ ('#comm_rank').text(data.full_name);
            		}
        		});     
   		});
